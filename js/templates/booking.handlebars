@@ -10,7 +10,9 @@
     <title>Document</title>
 </head>
 <body>
-    <form class="w-50"> 
+    <div class="d-flex">
+        <form class="w-50"> 
+            <h3 class="text-success"> Bookings Futsal</h3>
   <div class="form-group ">
     <label for="exampleFormControlInput1">Your Name</label>
     <input disabled type="text" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
@@ -26,6 +28,10 @@
   </div>
   <button type="submit"  class="btn btn-success mb-2">Book Futsal</button>
 </form>
+<div class="w-50 ">
+<h3 class="text-success">All Bookings</h3>
+</div>
+    </div>
 <script>
    $(document).ready(function() {
     var getSess = sessionStorage.getItem('username');

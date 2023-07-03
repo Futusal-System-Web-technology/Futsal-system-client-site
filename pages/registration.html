@@ -49,15 +49,15 @@ var regData = {
          
       
           type: 'POST',
-          url: 'https://jom-tapau-backend.onrender.com/user',
+          url: 'https://futsal-server-site.onrender.com/api/v1/users/register',
     data: 
       JSON.stringify(  {username: `${usernameInp}`,
     email: `${emailInp}`,
-    password: `${passwordInp}`})
+    password: `${passwordInp}`, role: "user"})
     ,
     contentType: 'application/json',
           success: function(data) {
-
+               
             console.log('Success:', data);
             sessionStorage.setItem('username', usernameInp);
                     sessionStorage.setItem('Admin', false);
