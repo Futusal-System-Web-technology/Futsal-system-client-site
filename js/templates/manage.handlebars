@@ -1,9 +1,148 @@
-<div class="col-md-12">
-    <div class="card">
-        <div class="card-body">
-            This is manage bookings
-	     
-	          
-        </div>
-    </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="">
+
+          <div class="container">
+    <div class="row justify-content-center vertical-center">
+      <div class="col-md-6">
+     
+        <br>
+      
+        <br>
+      
+        <form id="para" method="POST">
+          <div class="form-floating">
+  <select name="status" class="form-select" id="status" aria-label="Floating label select example">
+
+    <option  value="true">Completed</option>
+    <option selected value="false">In Progress</option>
+    
+  </select>
+  <label for="floatingSelect">Works with selects</label>
 </div>
+         
+          <button type="submit" id="update" class="btn btn-success">Update</button>
+        </form>
+      
+       
+     
+      </div>
+    </div>
+  </div>
+    <h3 class="text-white bg-success p-3 ">List of Bookings</h3>
+     <table style="" class="table table-striped table-hover table-bordered ">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Change Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each users}}
+            <tr>
+                <td>{{matricValue}}</td>
+                <td>{{name}}</td>
+                <td>{{email}}</td>
+                <td>{{{adminStatus phoneNumber}}}</td>
+               
+ <td>
+                    <button id="edit{{@index}}" class="edit-button btn btn-success">edit</button>
+                    <input hidden id="inpID{{@index}}" class="input-field" type="text" value="{{_id}}">
+                     <input hidden id="inpName{{@index}}" class="input-field" type="text" value="{{name}}">
+                      <input hidden id="inpMatric{{@index}}" class="input-field" type="text" value="{{matricValue}}">
+                       <input hidden id="inpEmail{{@index}}" class="input-field" type="text" value="{{email}}">
+                        <input hidden id="inpAdmin{{@index}}" class="input-field" type="text" value="{{Admin}}">
+               </td>
+               
+
+            </tr>
+            {{/each}}
+        </tbody>
+    </table> 
+  
+</div>
+<script>
+
+        $(document).ready(function() {
+      // Hide the paragraph when the document is ready
+      $("#para").hide();
+    });
+    var editButtons = document.getElementsByClassName("edit-button");
+   
+  
+var inpCurVal ;
+var inpCurValName ;
+var inpCurValMatric ;
+var inpCurValAdmin ;
+var inpCurValEmail ;
+    for (var i = 0; i < editButtons.length; i++) {
+        editButtons[i].addEventListener("click", function() {
+               $("#para").show();
+            var inputId = this.id.replace("edit", "inpID");
+            var input = document.getElementById(inputId);
+            
+   var inputName = this.id.replace("edit", "inpName");
+            var inputNameVal = document.getElementById(inputName).value;
+
+ var inputEmail = this.id.replace("edit", "inpEmail");
+            var inputEmailVal = document.getElementById(inputEmail).value;
+
+
+ var inputMatric = this.id.replace("edit", "inpMatric");
+            var inputMatricVal = document.getElementById(inputMatric).value;
+
+            var value = input.value;
+        
+            inpCurVal=value;
+            inpCurValName=inputNameVal;
+            inpCurValEmail=inputEmailVal;
+            inpCurValMatric=inputMatricVal;
+                console.log("Input value: " + inpCurVal+ "name"+ inpCurValName, "email"+inpCurValEmail+ "matric:"+ inpCurValMatric);
+        });
+    }
+document.getElementById('update').addEventListener('click',function(){
+     
+})
+$('form').submit(function(e) {
+    e.preventDefault();
+ var inpStatus = document.getElementById('status');
+ console.log(inpCurValName)
+   
+         $.ajax({
+          type: 'PUT',
+          url: `https://jom-tapau-backend.onrender.com/user/${inpCurVal}`,
+          dataType:"JSON",
+          data: JSON.stringify(
+           {name: `${inpCurValName}`,
+    email: `${inpCurValEmail}`,
+    phoneNumber: `${inpStatus}`,
+    
+    _id:`${inpCurVal}`}
+          ),
+            contentType: 'application/json',
+          success: function(data) {
+
+         
+  
+           
+          
+          },
+          error: function() {
+            // Display error message
+            $('#errorMessage').text('An error occurred during form submission.');
+          }
+        });
+});
+
+</script>
+</body>
+</html>
