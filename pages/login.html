@@ -23,11 +23,17 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
     $(document).ready(function() {
+        if (sessionStorage.getItem('username')) {
+  // Redirect to index.html if session found
+  window.location.href = '../index.html';
+} 
+   
+
         $('#messages').hide();
         $('#loading').hide();
       $('form').submit(function(e) {
         e.preventDefault(); // Prevent form submission
-
+        $('#loading').show();
         // Get the form input values
         var username = $('#exampleInputEmail1').val();
         var password = $('#exampleInputPassword1').val();
@@ -45,9 +51,11 @@ console.log(username, password);
               
                 // $('#messages').append("<li>"+user.matricValue+"</li>")
                 if (user.email === username && user.matricValue === password) {
-                    $('#loading').show();
+                  
                     $('#messages').hide();
-                    window.location.href = 'registration.html';
+                    sessionStorage.setItem('username', username);
+                    sessionStorage.setItem('Admin', user.Admin);
+                    window.location.href="../index.html";
             } 
          
               
@@ -90,6 +98,7 @@ $('#loading').hide(),
           <button type="submit" class="btn btn-success">Submit</button>
         </form>
         <p class="text-danger" id="messages">No Such user exists </p>
+        <p class="text-dark" id="">New User? <a href="registration.html">Please Register</a> </p>
         <img id="loading" src="../images/YCZH.gif" alt="">
       </div>
     </div>
