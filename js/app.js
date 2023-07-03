@@ -3,6 +3,13 @@ $(function(){
         crossroads.parse(newHash);
     }
 
+    Handlebars.registerHelper("adminStatus", function(Admin){
+       console.log("admin",Admin)
+        if (Admin ==true)        
+           return '<span class="badge badge-danger text-success">Completed</span>';
+        else       
+           return '<span class="badge badge-success text-warning">In Progress</span>';
+    })
     var routeRoot = crossroads.addRoute('/home', function(){
         $(".navbar-collapse li a[href='#manage']").css('color', 'white');
         $(".navbar-collapse li a[href='#profile']").css('color', 'white');
@@ -10,6 +17,38 @@ $(function(){
         $(".navbar-collapse li a[href='#bookings']").css('color', 'white');
         //redirect to home
 		window.location.href = "#home";
+
+        if(sessionStorage.getItem('Admin')=="true")
+        {
+        var homeTemplate = Handlebars.templates['homeAdmin'];
+        var jsonDataArray=[];
+        
+        $.ajax({
+            type: 'GET',
+            url: 'https://jom-tapau-backend.onrender.com/user',
+            dataType:"JSON",
+            data: JSON.stringify(),
+            success: function(data) {
+  
+           
+                 jsonDataArray = [
+                    ...data
+                ];
+               
+                console.log(jsonDataArray);
+                var renderedTemplate = homeTemplate({ "users": jsonDataArray });
+                $('#divcontent').html(renderedTemplate).hide().fadeIn(1000);
+            
+            },
+            error: function() {
+              
+            }
+          });
+        
+         
+       
+        }
+        else 
         var homeTemplate = Handlebars.templates['home'];
         $("#divcontent").empty();
         $("#divcontent").html(homeTemplate).hide().fadeIn(1000);

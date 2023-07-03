@@ -1,0 +1,23 @@
+<div class="">
+    <h3 class="text-white bg-success p-3 ">List of Bookings</h3>
+     <table style="" class="table table-striped table-hover table-bordered ">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each users}}
+            <tr>
+                <td>{{_id}}</td>
+                <td>{{name}}</td>
+                <td>{{email}}</td>
+                <td>{{{adminStatus Admin}}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table> 
+</div>
