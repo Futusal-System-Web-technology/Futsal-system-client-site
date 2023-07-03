@@ -1,97 +1,116 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <title>Futsal Booking System</title>
-  <!-- Bootstrap CSS -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  
+    <title>Futsal Booking System</title>
+    <!-- Bootstrap CSS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <style>
-    html, body {
-      height: 100%;
-    }
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      html,
+      body {
+        height: 100%;
+      }
 
-    .vertical-center {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-    }
-  </style>
-  <!-- jQuery -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script>
-    $(document).ready(function() {
-        if (sessionStorage.getItem('username')) {
-  // Redirect to index.html if session found
-  window.location.href = '../index.html';
-} 
-   
+      .vertical-center {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+      }
+    </style>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        if (sessionStorage.getItem("username")) {
+          // Redirect to index.html if session found
+          window.location.href = "../index.html";
+        }
 
-        $('#messages').hide();
-        $('#loading').hide();
-      $('form').submit(function(e) {
-        e.preventDefault(); // Prevent form submission
-        $('#loading').show();
-        // Get the form input values
-        var username = $('#exampleInputEmail1').val();
-        var password = $('#exampleInputPassword1').val();
-console.log(username, password);
-        // Send an AJAX request to check the combination
-        $.ajax({
-          type: 'POST',
-          url: 'https://futsal-server-site.onrender.com/api/v1/users/login',
-          dataType:"JSON",
-          data: JSON.stringify({
-            userName: `${username}`,
-            password: `${password}`
-          }),
-          contentType: 'application/json',
-          success: function(data) {
-
-         console.log(data);
-           
-           
-          
-          },
-          error: function() {
-            // Display error message
-            $('#errorMessage').text('An error occurred during form submission.');
-          }
+        $("#messages").hide();
+        $("#loading").hide();
+        $("form").submit(function (e) {
+          e.preventDefault(); // Prevent form submission
+          $("#loading").show();
+          // Get the form input values
+          var username = $("#exampleInputEmail1").val();
+          var password = $("#exampleInputPassword1").val();
+          console.log(username, password);
+          // Send an AJAX request to check the combination
+          $.ajax({
+            type: "POST",
+            url: "https://futsal-server-site.onrender.com/api/v1/users/login",
+            dataType: "JSON",
+            data: JSON.stringify({
+              username: `${username}`,
+              password: `${password}`,
+            }),
+            contentType: "application/json",
+            success: function (data) {
+              console.log(data);
+            },
+            error: function () {
+              // Display error message
+              $("#errorMessage").text(
+                "An error occurred during form submission."
+              );
+            },
+          });
         });
       });
-    });
-  </script>
-</head>
-<body>
-  <div class="container">
-    <div class="row justify-content-center vertical-center">
-      <div class="col-md-6">
-        <h1 class="text-success">Welcome to Futsal Booking System</h1>
-        <br>
-        <h3 class="text-white bg-success p-3">Please Login to Book Futsal</h3>
-        <br>
-        <div id="errorMessage" class="text-danger"></div>
-        <form method="POST">
-          <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Username</label>
-            <input required type="text" class="form-control" id="exampleInputEmail1" name="username" aria-describedby="emailHelp">
-          </div>
-          <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Password</label>
-            <input required type="password" class="form-control" id="exampleInputPassword1" name="password">
-          </div>
-          <button type="submit" class="btn btn-success">Submit</button>
-        </form>
-        <p class="text-danger" id="messages">No Such user exists </p>
-        <p class="text-dark" id="">New User? <a href="registration.html">Please Register</a> </p>
-        <img id="loading" src="../images/YCZH.gif" alt="">
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row justify-content-center vertical-center">
+        <div class="col-md-6">
+          <h1 class="text-success">Welcome to Futsal Booking System</h1>
+          <br />
+          <h3 class="text-white bg-success p-3">Please Login to Book Futsal</h3>
+          <br />
+          <div id="errorMessage" class="text-danger"></div>
+          <form method="POST">
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label"
+                >Username</label
+              >
+              <input
+                required
+                type="text"
+                class="form-control"
+                id="exampleInputEmail1"
+                name="username"
+                aria-describedby="emailHelp"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label"
+                >Password</label
+              >
+              <input
+                required
+                type="password"
+                class="form-control"
+                id="exampleInputPassword1"
+                name="password"
+              />
+            </div>
+            <button type="submit" class="btn btn-success">Submit</button>
+          </form>
+          <p class="text-danger" id="messages">No Such user exists</p>
+          <p class="text-dark" id="">
+            New User? <a href="registration.html">Please Register</a>
+          </p>
+          <img id="loading" src="../images/YCZH.gif" alt="" />
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Bootstrap JavaScript -->
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
+    <!-- Bootstrap JavaScript -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
 </html>
