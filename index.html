@@ -13,15 +13,7 @@
     <script>
     
         $(document).ready(function(){
-    //         if(sessionStorage.getItem('Admin')=="true")
-       
-    //   {  $('#adminLink').show();
-         
-    //     }
-    //    else 
-    //    {
-    //     $('#adminLink').hide();
-    //    }
+  
 
             if(!sessionStorage.getItem('username'))
             window.location.href='./pages/login.html';
@@ -30,6 +22,7 @@
     console.log('Button clicked!');
     sessionStorage.removeItem('username');
     sessionStorage.removeItem('Admin');
+    sessionStorage.removeItem('jwtToken');
   
     window.location.href='./pages/login.html';
     

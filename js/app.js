@@ -24,7 +24,50 @@ $(function(){
         //redirect to home
 		window.location.href = "#home";
 
-        if(sessionStorage.getItem('Admin')=="true")
+
+      
+
+        
+        // Function to decode (verify) a JWT token
+function decodeToken(token) {
+    const [encodedHeader, encodedPayload] = token.split('.');
+    const header = JSON.parse(atob(encodedHeader));
+    const payload = JSON.parse(atob(encodedPayload));
+  
+    return { header, payload };
+  }
+  
+  // Retrieve the token from sessionStorage
+  const token = sessionStorage.getItem('jwtToken');
+  console.log('Token:', token);
+  
+  if (token) {
+    try {
+      // Decode the token
+      const decodedToken = decodeToken(token);
+      console.log('Decoded Token:', decodedToken);
+    } catch (error) {
+      console.error('Error decoding token:', error);
+    }
+  } else {
+    console.log('Token not found in sessionStorage');
+  }
+
+  
+  
+  
+  
+  
+  
+  
+    
+  
+    
+
+
+     
+        
+        if(decodeToken(token).payload.role=="admin")
         {
         var homeTemplate = Handlebars.templates['homeAdmin'];
         var jsonDataArray=[];
@@ -89,7 +132,37 @@ $(function(){
         //redirect to home
 		
 
-        if(sessionStorage.getItem('Admin')=="true")
+        function decodeToken(token) {
+            const [encodedHeader, encodedPayload] = token.split('.');
+            const header = JSON.parse(atob(encodedHeader));
+            const payload = JSON.parse(atob(encodedPayload));
+          
+            return { header, payload };
+          }
+          
+          // Retrieve the token from sessionStorage
+          const token = sessionStorage.getItem('jwtToken');
+          console.log('Token:', token);
+          
+          if (token) {
+            try {
+              // Decode the token
+              const decodedToken = decodeToken(token);
+              console.log('Decoded Token:', decodedToken);
+            } catch (error) {
+              console.error('Error decoding token:', error);
+            }
+          } else {
+            console.log('Token not found in sessionStorage');
+          }
+        
+          
+          
+          
+
+
+
+          if(decodeToken(token).payload.role=="admin")
         {
         var homeTemplate = Handlebars.templates['manage'];
         var jsonDataArray=[];

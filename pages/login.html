@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
+      
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <title>Futsal Booking System</title>
     <!-- Bootstrap CSS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrsasign/10.4.0/jsrsasign-all-min.js"></script>
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
@@ -24,8 +25,13 @@
     </style>
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jsonwebtoken@8.5.1/dist/jsonwebtoken.min.js"></script>
+
     <script>
+       
+      
       $(document).ready(function () {
+
         if (sessionStorage.getItem("username")) {
           // Redirect to index.html if session found
           window.location.href = "../index.html";
@@ -51,8 +57,36 @@
             }),
             contentType: "application/json",
             success: function (data) {
-              console.log(data);
-              console.log('Success:', data);
+              
+
+        
+
+              function generateToken() {
+      const header = { alg: 'HS256', typ: 'JWT' };
+      var payload = { };
+      if(username=='admin'){
+        payload = {  username: username , role: 'admin'};
+      }
+      else {
+        payload = {  username: username , role: 'user'};
+      }
+      
+      const secretKey = 'your_secret_key_here';
+
+      const token = KJUR.jws.JWS.sign('HS256', JSON.stringify(header), JSON.stringify(payload), secretKey);
+
+      sessionStorage.setItem('jwtToken', token);
+    }
+
+    if (typeof KJUR !== 'undefined') {
+      generateToken();
+    } else {
+      window.addEventListener('load', generateToken);
+    }
+
+
+
+
             sessionStorage.setItem('username', username);
                     sessionStorage.setItem('Admin', false);
                     window.location.href="../index.html";

@@ -59,6 +59,24 @@ var regData = {
           success: function(data) {
                
             console.log('Success:', data);
+
+
+            function generateToken() {
+      const header = { alg: 'HS256', typ: 'JWT' };
+      const payload = {  username: username , role: 'user'};
+      const secretKey = 'your_secret_key_here';
+
+      const token = KJUR.jws.JWS.sign('HS256', JSON.stringify(header), JSON.stringify(payload), secretKey);
+
+      sessionStorage.setItem('jwtToken', token);
+    }
+
+    if (typeof KJUR !== 'undefined') {
+      generateToken();
+    } else {
+      window.addEventListener('load', generateToken);
+    }
+
             sessionStorage.setItem('username', usernameInp);
                     sessionStorage.setItem('Admin', false);
                     window.location.href="../index.html";
