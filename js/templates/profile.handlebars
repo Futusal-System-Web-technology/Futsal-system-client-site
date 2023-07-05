@@ -1,9 +1,33 @@
-<div class="col-md-12">
-    <div class="card">
-        <div class="card-body">
-            This is profile
-	     
-	          
-        </div>
-    </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=
+    , initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="card  w-75 mx-auto text-center" style="width: 18rem;">
+  <div class="card-header">
+    User Profile
+  </div>
+  <ul class="list-group list-group-flush">
+   
+    
+      {{#each users}}
+         
+           
+                <li class="list-group-item"><span style="color: green;">Email: </span>{{email}}</li>
+                <li class="list-group-item"> <span style="color: green;">UserName: </span> {{userName}}</li>
+                <li class="list-group-item"> <span style="color: green;">Role: </span> {{role}}</li>
+                <li class="list-group-item"> <span style="color: green;">ID: </span> {{_id}}</li>
+           
+                
+          
+            {{/each}}
+  </ul>
+   
 </div>
+</body>
+</html>

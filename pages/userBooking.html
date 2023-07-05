@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <title>Futsal Booking System</title>
+  <!-- Bootstrap CSS -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrsasign/10.4.0/jsrsasign-all-min.js"></script>
+
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+ 
+</head>
+<body>
+    <h3 class="text-success text-center">All Your Bookings </h3>
+    <div id="dataContainer"></div>
+
+
+</body>
+
+<script>
+
+var getSess= sessionStorage.getItem('username');
+        var jsonDataArray=[];
+        
+      
+
+        $.ajax({
+         
+      
+          type: 'POST',
+          url: ' https://futsal-server-site.onrender.com/api/v1/users/my-booking',
+    data: 
+      JSON.stringify(  {username: `${getSess}`
+      }
+    
+   )
+    ,
+    contentType: 'application/json',
+          success: function(data) {
+
+            
+              jsonDataArray=data.data;
+             
+
+
+           console.log(jsonDataArray);
+
+
+           var output = "<table class='table table-striped'>";
+      output += "<thead><tr><th>Date & Time of Booking</th><th>Description</th><th>Status</th></tr></thead>";
+      output += "<tbody>";
+      for (var i = 0; i < jsonDataArray.length; i++) {
+       if(jsonDataArray[i].futsal)
+       {
+        output += "<tr>";
+        output += "<td>" + jsonDataArray[i].date +" "+ jsonDataArray[i].futsal.time + "</td>"; // Modify the data access based on your JSON structure
+        output += "<td>" + jsonDataArray[i].futsal.name + "</td>"; // Modify the data access based on your JSON structure
+        output += "<td>" + jsonDataArray[i].futsal.status + "</td>"; // Modify the data access based on your JSON structure
+        output += "</tr>";
+       }
+      }
+      output += "</tbody></table>";
+
+      // Display the data on the HTML page
+      $("#dataContainer").html(output);
+              
+          },
+          error: function() {
+            // Display error message
+            $('#errorMessage').text('An error occurred during form submission.');
+          }
+        });
+
+</script>
+</html>

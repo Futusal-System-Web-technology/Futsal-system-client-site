@@ -102,13 +102,19 @@ function decodeToken(token) {
         $("#divcontent").empty();
         $("#divcontent").html(homeTemplate).hide().fadeIn(1000);
 	});
+
+
+
+
+
+
+
     var routeRoot = crossroads.addRoute('/bookings', function(){
         $(".navbar-collapse li a[href='#manage']").css('color', 'white');
         $(".navbar-collapse li a[href='#profile']").css('color', 'white');
         $(".navbar-collapse li a[href='#home']").css('color', 'white');
         $(".navbar-collapse li a[href='#bookings']").css('color', 'green');
         //redirect to home
-		
         var bookingTemplate = Handlebars.templates['booking'];
         $("#divcontent").empty();
         $("#divcontent").html(bookingTemplate).hide().fadeIn(1000);
@@ -119,6 +125,33 @@ function decodeToken(token) {
         $(".navbar-collapse li a[href='#home']").css('color', 'white');
         $(".navbar-collapse li a[href='#bookings']").css('color', 'white');
         //redirect to home
+        $.ajax({
+            type: 'GET',
+            url: 'https://futsal-server-site.onrender.com/api/v1/users',
+            dataType:"JSON",
+            data: JSON.stringify(),
+            success: function(data) {
+                  var sessData= sessionStorage.getItem('username');
+           data.data.forEach(function(user){
+
+            if(sessData==user.userName)
+            {
+                jsonDataArray = [
+                    user
+                ];
+            }
+           })
+                
+               
+                console.log(jsonDataArray);
+                var renderedTemplate = profileTemplate({ "users": jsonDataArray });
+                $('#divcontent').html(renderedTemplate).hide().fadeIn(1000);
+            
+            },
+            error: function() {
+              
+            }
+          });
 		
         var profileTemplate = Handlebars.templates['profile'];
         $("#divcontent").empty();
