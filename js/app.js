@@ -3,9 +3,9 @@ $(function(){
         crossroads.parse(newHash);
     }
 
-    Handlebars.registerHelper("adminStatus", function(phoneNumber){
-       console.log("admin",phoneNumber)
-        if (phoneNumber !=null||phoneNumber=="true")        
+    Handlebars.registerHelper("adminStatus", function(status){
+       console.log("admin",status)
+        if (status !=null&&status=="Accepted")        
            return '<span class="badge badge-danger text-success">Completed</span>';
         else       
            return '<span class="badge badge-success text-warning">In Progress</span>';
@@ -74,14 +74,14 @@ function decodeToken(token) {
         
         $.ajax({
             type: 'GET',
-            url: 'https://jom-tapau-backend.onrender.com/user',
+            url: 'https://futsal-server-site.onrender.com/api/v1/users/all-bookings',
             dataType:"JSON",
             data: JSON.stringify(),
             success: function(data) {
   
            
                  jsonDataArray = [
-                    ...data
+                    ...data.data
                 ];
                
                 console.log(jsonDataArray);
@@ -202,14 +202,14 @@ function decodeToken(token) {
         
         $.ajax({
             type: 'GET',
-            url: 'https://jom-tapau-backend.onrender.com/user',
+            url: 'https://futsal-server-site.onrender.com/api/v1/users/all-bookings',
             dataType:"JSON",
             data: JSON.stringify(),
             success: function(data) {
   
            
                  jsonDataArray = [
-                    ...data
+                    ...data.data
                 ];
                
                 console.log(jsonDataArray);

@@ -23,7 +23,7 @@
   </div>
 
   <div class="form-group">
-    <label for="exampleFormControlTextarea1">Why you want to book?</label>
+    <label for="exampleFormControlTextarea1">Why you want to book?(Mention the field you want to play in if you have a preference)</label>
     <textarea required class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
   </div>
   <button type="submit"  class="btn btn-success mb-2">Book Futsal</button>
@@ -67,6 +67,7 @@
           success: function(data) {
 
               console.log(data);
+              alert("Booking Done");
           
           },
           error: function() {

@@ -5,17 +5,20 @@
             <tr>
                 <th>#</th>
                 <th>Name</th>
-                <th>Email</th>
+                <th>Description</th>
+                <th>Time</th>
+            
                 <th>Status</th>
             </tr>
         </thead>
         <tbody>
             {{#each users}}
             <tr>
-                <td>{{matricValue}}</td>
-                <td>{{name}}</td>
-                <td>{{email}}</td>
-                <td>{{{adminStatus Admin}}}</td>
+                <td>{{_id}}</td>
+                <td>{{username}}</td>
+                <td>{{futsal.name}}</td>
+                <td>{{futsal.time}}</td>
+                <td>{{{adminStatus futsal.status}}}</td>
             </tr>
             {{/each}}
         </tbody>

@@ -20,8 +20,8 @@
           <div class="form-floating">
   <select name="status" class="form-select" id="status" aria-label="Floating label select example">
 
-    <option  value="true">Completed</option>
-    <option selected value="false">In Progress</option>
+    <option  value="Accepted">Completed</option>
+    <option selected value="In Progress">In Progress</option>
     
   </select>
   <label for="floatingSelect">Works with selects</label>
@@ -39,9 +39,11 @@
      <table style="" class="table table-striped table-hover table-bordered ">
         <thead>
             <tr>
-                <th>#</th>
+                 <th>#</th>
                 <th>Name</th>
-                <th>Email</th>
+                <th>Description</th>
+                <th>Time</th>
+            
                 <th>Status</th>
                 <th>Change Status</th>
             </tr>
@@ -49,13 +51,15 @@
         <tbody>
             {{#each users}}
             <tr>
-                <td>{{matricValue}}</td>
-                <td>{{name}}</td>
-                <td>{{email}}</td>
-                <td>{{{adminStatus phoneNumber}}}</td>
+                <td>{{_id}}</td>
+                <td>{{username}}</td>
+                <td>{{futsal.name}}</td>
+                <td>{{futsal.time}}</td>
+                <td>{{{adminStatus futsal.status}}}</td>
                
  <td>
                     <button id="edit{{@index}}" class="edit-button btn btn-success">edit</button>
+                    <button id="delete{{@index}}" class="delete-button btn btn-danger">delete</button>
                     <input hidden id="inpID{{@index}}" class="input-field" type="text" value="{{_id}}">
                      <input hidden id="inpName{{@index}}" class="input-field" type="text" value="{{name}}">
                       <input hidden id="inpMatric{{@index}}" class="input-field" type="text" value="{{matricValue}}">
@@ -77,6 +81,7 @@
       $("#para").hide();
     });
     var editButtons = document.getElementsByClassName("edit-button");
+    var deleteButtons = document.getElementsByClassName("delete-button");
    
   
 var inpCurVal ;
@@ -84,6 +89,36 @@ var inpCurValName ;
 var inpCurValMatric ;
 var inpCurValAdmin ;
 var inpCurValEmail ;
+
+ for (var i = 0; i < deleteButtons.length; i++) {
+        deleteButtons[i].addEventListener("click", function() {
+              
+            var inputId = this.id.replace("delete", "inpID");
+            var input = document.getElementById(inputId);
+            var value = input.value;
+          $.ajax({
+          type: 'DELETE',
+          url: `https://futsal-server-site.onrender.com/api/v1/users/delete-booking`,
+          dataType:"JSON",
+          data: JSON.stringify(
+           {  id:`${value}`}
+          ),
+            contentType: 'application/json',
+          success: function(data) {
+console.log(data)
+         console.log("deleted")
+  
+           location.reload()
+          
+          },
+          error: function() {
+            // Display error message
+            $('#errorMessage').text('An error occurred during form submission.');
+          }
+        });
+         console.log(value);
+        });
+    }
     for (var i = 0; i < editButtons.length; i++) {
         editButtons[i].addEventListener("click", function() {
                $("#para").show();
@@ -110,30 +145,28 @@ var inpCurValEmail ;
         });
     }
 document.getElementById('update').addEventListener('click',function(){
-     
+     console.log("clicked");
 })
 $('form').submit(function(e) {
     e.preventDefault();
  var inpStatus = document.getElementById('status');
- console.log(inpCurValName)
+ console.log(inpStatus);
+ console.log(inpCurValName, 'r u mili')
    
          $.ajax({
           type: 'PUT',
-          url: `https://jom-tapau-backend.onrender.com/user/${inpCurVal}`,
+          url: `https://futsal-server-site.onrender.com/api/v1/users/update-booking`,
           dataType:"JSON",
           data: JSON.stringify(
-           {name: `${inpCurValName}`,
-    email: `${inpCurValEmail}`,
-    phoneNumber: `${inpStatus}`,
-    
-    _id:`${inpCurVal}`}
+           {  id:`${inpCurVal}`,
+  status:`${inpStatus.value}`}
           ),
             contentType: 'application/json',
           success: function(data) {
-
-         
+console.log(data)
+         console.log("succes changed")
   
-           
+           location.reload()
           
           },
           error: function() {
